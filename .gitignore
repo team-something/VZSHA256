@@ -1,0 +1,9 @@
+*~
+~*
+*.swp
+bin
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+CMakeFiles
+sha-256
