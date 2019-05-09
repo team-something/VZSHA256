@@ -7,3 +7,6 @@ Makefile
 cmake_install.cmake
 CMakeFiles
 sha-256
+*.out
+SHA256-le
+
