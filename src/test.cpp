@@ -6,13 +6,12 @@
 #include <string>
 #include <vector>
 
-int main()
+int main(int argc, char **argv)
 {
-    std::string s_ = "aMVsPDdIQaMVsPDdIQaMVsPDdIQaMVsPDdIQaMVsPDdIQaMVsPDdIQaMVsPDdIQa";
-    std::string s = "11223344555577889911223344555577889911223344555577889911223344555577889911223344555577889911223344\
-                     555577812121212494949494121212";
+    std::string s;
+    std::getline(std::cin, s);
     std::vector<uint32_t> hash_digest;
-    vzsha256::sha256(s_, hash_digest);
+    vzsha256::sha256(s, hash_digest);
     for(auto x : hash_digest)
     {
         std::cout << std::hex << x;

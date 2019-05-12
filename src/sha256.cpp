@@ -38,21 +38,11 @@ namespace vzsha256
 
         std::vector<uint32_t> padded_data((number_blocks * (512 / 32)), 0); // Resize string to fit number_blocks blocks
 
-        /* *****************
-         * Works until here
-         * ****************/
         std::string temp_ = data + (char)0x80;
         memcpy(&padded_data[0], temp_.c_str(), temp_.size());
-        
+
         // std::copy(data.begin(), data.end(), padded_data.begin()); // Copy original data onto padded vector
         padded_data[data.size()] = (uint32_t)0x80; // Add bit 1 as last character; 0x80 is 1 in big endian
-        for(int i=0; i<(int)padded_data.size(); i++) {
-            /* ***********
-             * This is where the issue is
-             * **********/
-            std::cout << padded_data[i] << " ";
-        }
-        std::cout << "\n";
         // Make all other characters big - endian
         for(int i=0; i<(int)padded_data.size(); ++i)
         {
@@ -65,7 +55,8 @@ namespace vzsha256
         {
             std::vector<uint32_t> w(64, 0); // 64 entry message schedule entry
             //Copy the 16 numbers from the ith block to the w vector
-            std::copy(padded_data.begin() + i * 16, padded_data.begin() + (i + 1) * 16, w.begin());
+            std::copy(padded_data.begin() + (i * 16), padded_data.begin() + ((i + 1) * 16), w.begin());
+
             // Create the remaining 48 words from the first 16
             for(uint32_t j=16; j<64; ++j)
             {
@@ -74,8 +65,10 @@ namespace vzsha256
                 uint32_t s1 = right_rotate(w[j - 2], 17) ^ right_rotate(w[j - 2], 19) ^ (w[j - 2] >> 10);
                 w[j] = w[j-16] + s0 + w[j-7] + s1;
             }
+
             // Copy hash digest onto a temp variable
             std::vector <uint32_t> temp_digest(hash_digest);
+
             // Compression
             for(uint32_t j=0; j<64; j++)
             {
@@ -97,11 +90,14 @@ namespace vzsha256
                 temp_digest[2] = temp_digest[1];
                 temp_digest[1] = temp_digest[0];
                 temp_digest[0] = temp1 + temp2;
+                if(j == 0)
+                {
+                }
             }
 
             for(int j=0; j<8; j++)
             {
-                hash_digest[i] += temp_digest[i];
+                hash_digest[j] += temp_digest[j];
             }
         }
     }

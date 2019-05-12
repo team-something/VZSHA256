@@ -20,7 +20,11 @@ set(CMAKE_BUILD_TYPE RelWithDebInfo)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pg -O3")
 
 #####################################################
-# Renderer Configuration
+# Program Compilation
 #####################################################
-# Build the program
-add_executable(test src/test.cpp src/sha256.cpp)
+# Build the library
+add_library(sha256 STATIC src/sha256.cpp)
+# Build the test program
+add_executable(test src/test.cpp)
+#Link SHA library
+target_link_libraries(test sha256)
