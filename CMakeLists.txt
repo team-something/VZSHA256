@@ -15,9 +15,9 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/libs)
 # Add Folder with Header Files
 include_directories(${CMAKE_SOURCE_DIR}/include)
 # Turn on Optimised debugging for gdb
-set(CMAKE_BUILD_TYPE RelWithDebInfo)
+# set(CMAKE_BUILD_TYPE RelWithDebInfo)
 # Add CXXFLAGS
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -pg -O3")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall -O3")
 
 #####################################################
 # Program Compilation
